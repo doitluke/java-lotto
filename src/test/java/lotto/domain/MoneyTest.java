@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,7 @@ class MoneyTest {
     @Test
     void getBuyCount() {
         money = new Money(10000);
-        int buyCount = money.getBuyCount();
+        int buyCount = money.getAutoGameCount();
         assertThat(buyCount).isEqualTo(10);
     }
 
@@ -31,7 +30,7 @@ class MoneyTest {
     @Test
     void getBuyCountWithSpecificType() {
         money = new Money(12345);
-        int buyCount = money.getBuyCount();
+        int buyCount = money.getAutoGameCount();
         assertThat(buyCount).isEqualTo(12);
     }
 
