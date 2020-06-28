@@ -4,25 +4,27 @@ import lotto.domain.*;
 import lotto.view.Input;
 import lotto.view.Output;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class LottoGame {
 
     public static void main(String[] args) {
-        Input input = new Input(new Scanner(System.in));
 
-        Money money = input.inputMoney();
-        Output.printLottoCount(money);
+        Money money = Input.inputMoney();
 
-        LottoController lottoController = new LottoController(money);
+        int selectCount = Input.inputSelectLottoCount();
+        money.resetBuyCount(selectCount);
+
+        List<Lotto> selectLottos = Input.inputSelectLottonumber(selectCount);
+        Output.printAutoCountSelectCount(money);
+
+        LottoController lottoController = new LottoController(money, selectLottos);
         lottoController.createLotto();
+        WinningLotto winningLotto = Input.inputLastWinningNumber();
 
-        Lotto winningLotto = new Lotto(input.inputLastWinningNumber());
-        LottoNumber bonusNumber = input.inputLastBonusNumber();
+        WinningLottoResult lottoResult = lottoController.matchLotto(winningLotto);
 
-        WinningLottoResult lottoResult = lottoController.matchLotto(winningLotto, bonusNumber);
-
-        Output.printResultStatic(lottoResult, money.getBuyCount());
+        Output.printResultStatic(lottoResult, money.getAutoGameCount());
 
 
     }
